@@ -1,52 +1,45 @@
 import CartWidget from "../CartWidget/CartWidget";
 import logo from "../../img/TG.png";
-import Container from 'react-bootstrap/Container';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
+import { NavLink ,Link} from 'react-router-dom';
 
 const NavBar = () => {
     return (
         <div>
-        <Navbar expand="lg" className="bg-body-tertiary">
-            <Container>
-                <a className="navbar-brand" href="index.html">
-                    <img src={logo} width="100px" alt="Logo" />
-                </a>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto">
-                        <Nav.Link href="#home">Inicio</Nav.Link>
-                        <Nav.Link href="#link">Componentes</Nav.Link>
-                        <Nav.Link href="#link">Monitores</Nav.Link>
-                        <Nav.Link href="#link">Notebooks</Nav.Link>
-                        <Nav.Link href="#link">Periféricos</Nav.Link>
-                        <NavDropdown title="Nosotros" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Dónde estamos?</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Historia</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Preguntas</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Contactenos</NavDropdown.Item>
-                        </NavDropdown>
-                        
-                    </Nav>
-                    <Form className="d-flex">
-                        <Form.Control
-                            type="search"
-                            placeholder="Search"
-                            className="me-2"
-                            aria-label="Search"
-                        />
-                        <Button variant="outline-success">Search</Button>
-                    </Form>
-                </Navbar.Collapse>
-            </Container>
-            <CartWidget />
-        </Navbar>
+            <nav className="navbar" role="navigation" aria-label="main navigation">
+                <div className="navbar-brand">
+                    <Link className="navbar-item" to="/">
+                        <img alt="" src={logo} width="40" height="40" />
+                    </Link>
+
+                    <div role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                        <span aria-hidden="true"></span>
+                    </div>
+                </div>
+
+                <div id="navbarBasicExample" className="navbar-menu">
+                    <div className="navbar-start">
+                        <div className="navbar-item button is-link is-light">
+                            <NavLink to={"/"}>Inicio</NavLink>
+                        </div>
+
+                        <div className="navbar-item button is-link is-light">
+                            <NavLink to={`/category/Monitores`} className= {({isActive})=>isActive?'ActiveOption':'Option'}>Monitores</NavLink>
+                        </div>
+
+                        <div className="navbar-item button is-link is-light">
+                            <NavLink to={`/category/Almacenamiento`} className={({isActive})=>isActive?'ActiveOption':'Option'}>Almacenamiento</NavLink>
+                        </div>
+
+                    </div>
+                    <div className="navbar-item">
+                        <CartWidget />
+                    </div>
+                </div>
+            </nav>
         </div>
-        );
+    );
 };
 
 export default NavBar;
