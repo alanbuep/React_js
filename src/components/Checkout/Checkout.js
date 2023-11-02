@@ -29,7 +29,7 @@ function Checkout() {
 
             const ids = cart.map(prod => prod.id);
 
-            const productsRef = collection(db, 'products');
+            const productsRef = collection(db, 'listaProductos');
 
             const productsAddedFormFirestore = await getDocs(query(productsRef, where(documentId(), 'in', ids)));
 
