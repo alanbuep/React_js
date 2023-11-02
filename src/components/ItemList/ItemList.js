@@ -1,10 +1,11 @@
 import Item from '../Item/Item';
+import { Row, Col } from 'react-bootstrap';
 
-const ItemList = ({products}) => {
+const ItemList = ({ products }) => {
     return (
-        <div className='is-flex-wrap-wrap'>
-            {products.map(prod => <Item key={prod.id} {...prod} />)}
-        </div>
+        <Row>
+            {products.map(prod => <Col className='mb-4'><Item key={prod.id} {...prod} /></Col>)}
+        </Row>
     )
 }
 

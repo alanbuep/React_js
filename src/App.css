@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  background-color: rgb(51, 51, 51);
 }
 
 .App-logo {
@@ -35,4 +36,16 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.img-card{
+  height: 200px;
+  object-fit: scale-down;
+}
+
+.card-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: scroll;
 }

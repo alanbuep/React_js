@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
+import { useContext } from 'react';
+import { CartContext } from '../../Context/CartContext';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-export const Item = ({ id, name, img, price, stock }) => {
+export const CartItem = ({ id, name, img, price, stock }) => {
+    const { removeItem } = useContext(CartContext);
+
+    const handleRemoveItem = () => {
+        removeItem(id);
+    };
+
     return (
         <div>
             <Card style={{ width: '18rem' }}>
@@ -15,11 +22,12 @@ export const Item = ({ id, name, img, price, stock }) => {
                         <p className="text-primary">Cantidad Disponible:</p>
                         <p className="text-primary">{stock}</p>
                     </Card.Text>
-                    <Link to={`/item/${id}`}><Button variant="primary">Ver Detalles</Button></Link>
+                    <Button variant="primary" onClick={handleRemoveItem}>Eliminar</Button>
                 </Card.Body>
             </Card>
-        </div >
-    )
-}
+        </div>
+    );
+};
 
-export default Item;
+export default CartItem;
+
