@@ -3,7 +3,7 @@ import { CartContext } from '../../Context/CartContext';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
-export const CartItem = ({ id, name, img, price, stock }) => {
+export const CartItem = ({ id, name, img, price, quantity }) => {
     const { removeItem } = useContext(CartContext);
 
     const handleRemoveItem = () => {
@@ -17,10 +17,8 @@ export const CartItem = ({ id, name, img, price, stock }) => {
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text>
-                        <p className="text-primary">Precio efectivo o transferencia:</p>
-                        <p className="text-primary">${price}</p>
-                        <p className="text-primary">Cantidad Disponible:</p>
-                        <p className="text-primary">{stock}</p>
+                        <p className="text-primary">Precio: ${price}</p>
+                        <p className="text-primary">Cantidad: {quantity}</p>
                     </Card.Text>
                     <Button variant="primary" onClick={handleRemoveItem}>Eliminar</Button>
                 </Card.Body>
