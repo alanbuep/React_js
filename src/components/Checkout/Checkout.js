@@ -3,7 +3,8 @@ import { query, Timestamp, writeBatch, collection, getDocs, where, documentId, a
 import { db } from "../../services/firebase/firebaseConfig";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
 import { CartContext } from "../../Context/CartContext";
-import { Alert,Button } from "react-bootstrap";
+import { Alert, Button, Row, Container } from "react-bootstrap";
+import CheckItem from "../CheckItem/CheckItem";
 import { Link } from "react-router-dom";
 
 function Checkout() {
@@ -90,10 +91,18 @@ function Checkout() {
     }
 
     return (
-        <div>
-            <h1 className="text-white">Checkout</h1>
+        <Container>
+            <h1 className="text-white">Checkout:</h1>
             <CheckoutForm onConfirm={createOrder} />
-        </div>
+            <h3 className="text-white mt-3">Costo Total: ${totalCost}</h3>
+            <h3 className="text-white">Productos:</h3>
+            <Row>
+                {cart.map(p => <Container className='mb-4'><CheckItem key={p.id} {...p} /></Container>)}
+            </Row>
+            <Link to='/'>
+                <Button onClick={clearCart} className='mt-4' variant="danger"> Cancelar Compra</Button>
+            </Link>
+        </Container >
     )
 }
 

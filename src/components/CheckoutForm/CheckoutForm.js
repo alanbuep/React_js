@@ -64,7 +64,7 @@ function CheckoutForm({ onConfirm }) {
                     </Form>
                 </div>
             ) : (
-                <Button className="mt-4" size="lg" onClick={handleGoogle} variant="outline-success">Ingresar Con Google</Button>
+                <Button size="lg" onClick={handleGoogle} variant="outline-success">Ingresar Con Google</Button>
             )}
         </Container>
     )
