@@ -1,26 +1,32 @@
 import { useContext, useState } from "react";
-import { getDoc, doc, query, Timestamp, batch, writeBatch, collection, getDocs, where, documentId, addDoc } from "firebase/firestore";
+import { query, Timestamp, writeBatch, collection, getDocs, where, documentId, addDoc } from "firebase/firestore";
 import { db } from "../../services/firebase/firebaseConfig";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
 import { CartContext } from "../../Context/CartContext";
+import { Alert } from "react-bootstrap";
 
 function Checkout() {
 
     const [loading, setLoading] = useState(false);
     const [orderId, setOrderId] = useState('');
 
-    const { cart, total, clearCart, addItem } = useContext(CartContext);
+    const { cart, totalCost , clearCart } = useContext(CartContext);
 
     const createOrder = async ({ name, phone, email }) => {
         setLoading(true);
 
         try {
+
+            if (!name || !phone || !email || cart.length === 0 || totalCost <= 0) {
+                console.error("Algunos campos requeridos no están definidos o tienen valores inválidos.");
+                return;
+            }
             const objOrder = {
-                buyer: {
-                    name, phone, email
-                },
+                name: name, 
+                phone: phone, 
+                email: email,
                 items: cart,
-                total: total,
+                totalCost: totalCost,
                 date: Timestamp.fromDate(new Date())
             }
             const batch = writeBatch(db);
@@ -54,7 +60,7 @@ function Checkout() {
 
                 const orderRef = collection(db, 'orders');
 
-                const orderAdded = await addDoc(orderRef, objOrder);
+                const orderAdded = await addDoc(orderRef,objOrder);
 
                 setOrderId(orderAdded.id);
                 clearCart();
@@ -70,16 +76,16 @@ function Checkout() {
     }
 
     if (loading) {
-        return <h1>Se esta generando su orden</h1>
+        return <Alert key="info" variant="info" className="mt-4"><h4>Se esta generando su orden</h4></Alert>
     }
 
     if (orderId) {
-        return <h1>El id de su orden es: {orderId}</h1>
+        return <Alert key="success" variant="success" className="mt-4"><h4><strong>El id de su orden es:</strong> {orderId}</h4></Alert>
     }
 
     return (
         <div>
-            <h1>Checkout</h1>
+            <h1 className="text-white">Checkout</h1>
             <CheckoutForm onConfirm={createOrder} />
         </div>
     )

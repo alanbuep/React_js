@@ -21,7 +21,7 @@ export const CartProvider = ({ children }) => {
             setTotalQuantity(prevTotalQuantity => prevTotalQuantity + quantity);
             setTotalCost(prevTotalCost => prevTotalCost + (item.price * quantity))
         } else {
-            console.error("El producto ya fue agregado")
+            alert("El producto ya fue agregado anteriormente")
         }
     }
 
@@ -38,6 +38,7 @@ export const CartProvider = ({ children }) => {
     const clearCart = () => {
         setCart([]);
         setTotalQuantity(0);
+        setTotalCost(0);
     }
 
     const isInCart = (itemId) => {

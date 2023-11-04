@@ -1,41 +1,54 @@
 import { useState } from "react";
+import { Form, InputGroup, Container, Button, Row } from "react-bootstrap";
 
-function CheckoutForm({onConfirm}){
+function CheckoutForm({ onConfirm }) {
 
-    const[name,setName]=useState('');
-    const[phone,setPhone]=useState('');
-    const[email,setEmail]=useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [email, setEmail] = useState('');
 
-    const handleConfirm = (event) =>{
+    const handleConfirm = (event) => {
         event.preventDefault();
 
         const userData = {
-            name,phone,email
+            name, phone, email
         }
 
         onConfirm(userData);
     }
 
-    return(
-        <div>
-            <form onSubmit={handleConfirm}>
-                <label>
-                    Nombre
-                    <input type="text" value={name} onChange={({target})=> setName(target.value)} />
-                </label>
-                <label>
-                    Telefono
-                    <input type="text" value={phone} onChange={({target})=> setPhone(target.value)} />
-                </label>
-                <label>
-                    Email
-                    <input type="email" value={email} onChange={({target})=> setEmail(target.value)} />
-                </label>
-                <div>
-                    <button type="submit">Crear Orden de Compra</button>
-                </div>
-            </form>
-        </div>
+    return (
+        <Container className="mt-4">
+            <Form onSubmit={handleConfirm}>
+                <Row>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="inputGroup-sizing-default">
+                            Nombre
+                        </InputGroup.Text>
+                        <Form.Control
+                            type="text" value={name} onChange={({ target }) => setName(target.value)}
+                        />
+                    </InputGroup>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="inputGroup-sizing-default">
+                        Telefono
+                        </InputGroup.Text>
+                        <Form.Control
+                            type="text" value={phone} onChange={({ target }) => setPhone(target.value)}
+                        />
+                    </InputGroup>
+                    <InputGroup className="mb-3">
+                        <InputGroup.Text id="inputGroup-sizing-default">
+                        Email
+                        </InputGroup.Text>
+                        <Form.Control
+                            type="email" value={email} onChange={({ target }) => setEmail(target.value)}
+                        />
+                    </InputGroup>
+                </Row>
+                <Button type="submit" variant="success">Crear Orden de Compra</Button>
+            </Form>
+        </Container>
     )
 }
 

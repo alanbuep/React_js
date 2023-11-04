@@ -2,28 +2,41 @@ import { useContext } from "react";
 import { CartContext } from "../../Context/CartContext";
 import CartItem from "../CartItem/CartItem";
 import { Link } from "react-router-dom";
-import { Container,Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Button, Card } from "react-bootstrap";
 
 function Cart() {
     const { cart, clearCart, totalQuantity, totalCost } = useContext(CartContext);
 
     if (totalQuantity === 0) {
         return (
-            <div>
-                <h1>No hay items en el carrito</h1>
-                <Link to='/'>Productos</Link>
-            </div>
+            <Container className="mt-4 text-white">
+                <Card.Title className="mt-4">No hay items en el carrito</Card.Title>
+                <Link to='/'>
+                    <Button className="mt-4">Inicio</Button>
+                </Link>
+
+            </Container>
         )
     }
 
     return (
         <Container className="mt-4 container-cards">
             <Row>
-                {cart.map(p => <Col className='mb-4'><CartItem key={p.id} {...p} /></Col>)}
+                {cart.map(p => <Container className='mb-4'><CartItem key={p.id} {...p} /></Container>)}
             </Row>
-            <h3>Total: ${totalCost}</h3>
-            <button onClick={() => clearCart()}>Limpiar Carrito</button>
-            <Link to='/checkout'>Checkout</Link>
+            <Row>
+                <Col>
+                    <Button variant="warning" onClick={() => clearCart()}>Limpiar Carrito</Button>
+                </Col>
+                <Col>
+                    <h3 className="text-white">Total: ${totalCost}</h3>
+                </Col>
+                <Col>
+                    <Link to='/checkout'>
+                        <Button variant="success">Checkout</Button>
+                    </Link>
+                </Col>
+            </Row>
         </Container>
     )
 }
