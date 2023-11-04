@@ -3,14 +3,15 @@ import { query, Timestamp, writeBatch, collection, getDocs, where, documentId, a
 import { db } from "../../services/firebase/firebaseConfig";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
 import { CartContext } from "../../Context/CartContext";
-import { Alert } from "react-bootstrap";
+import { Alert,Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 function Checkout() {
 
     const [loading, setLoading] = useState(false);
     const [orderId, setOrderId] = useState('');
 
-    const { cart, totalCost , clearCart } = useContext(CartContext);
+    const { cart, totalCost, clearCart } = useContext(CartContext);
 
     const createOrder = async ({ name, phone, email }) => {
         setLoading(true);
@@ -22,8 +23,8 @@ function Checkout() {
                 return;
             }
             const objOrder = {
-                name: name, 
-                phone: phone, 
+                name: name,
+                phone: phone,
                 email: email,
                 items: cart,
                 totalCost: totalCost,
@@ -60,7 +61,7 @@ function Checkout() {
 
                 const orderRef = collection(db, 'orders');
 
-                const orderAdded = await addDoc(orderRef,objOrder);
+                const orderAdded = await addDoc(orderRef, objOrder);
 
                 setOrderId(orderAdded.id);
                 clearCart();
@@ -80,7 +81,12 @@ function Checkout() {
     }
 
     if (orderId) {
-        return <Alert key="success" variant="success" className="mt-4"><h4><strong>El id de su orden es:</strong> {orderId}</h4></Alert>
+        return <Alert key="success" variant="success" className="mt-4">
+            <h4><strong>El id de su orden es:</strong> {orderId}</h4>
+            <Link to='/'>
+                <Button className='mt-4' variant="info"> Volver al Inicio</Button>
+            </Link>
+        </Alert>
     }
 
     return (

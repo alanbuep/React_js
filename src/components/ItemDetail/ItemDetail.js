@@ -33,9 +33,14 @@ function ItemDetail({ id, name, img, price, stock, description }) {
                     <div>
                         {
                             quantityAdded > 0 ? (
-                                <Link to='/cart'>
-                                    <Button variant="success"> Terminar compra</Button>
-                                </Link>
+                                <Row>
+                                    <Link to='/cart'>
+                                        <Button variant="success"> Terminar compra</Button>
+                                    </Link>
+                                    <Link to='/'>
+                                        <Button className='mt-4' variant="info"> Seguir comprando</Button>
+                                    </Link>
+                                </Row>
                             ) : (
                                 <div>
                                     <ItemCount initial={1} stock={stock} onAdd={handleOnAdd} />
