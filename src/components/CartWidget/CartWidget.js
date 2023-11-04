@@ -10,7 +10,7 @@ function CartWidget() {
 
     return (
         <Container>
-            <Link to='/cart' style={{ display: totalQuantity > 0 ? 'block' : 'none' }}>
+            <Link to='/cart' className='text-white nav-link active' style={{ display: totalQuantity > 0 ? 'block' : 'none' }}>
                 <Row>
                     <Col>
                         {totalQuantity}
